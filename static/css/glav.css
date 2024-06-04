@@ -1,0 +1,305 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	background-color: rgba(18, 18,18, 1);
+	font-family: 'Albert Sans', sans-serif;
+	color: white;
+}
+header{
+	width: 100%;
+	height: fit-content;
+	background-color: rgb(18, 18, 18);
+	font-family: 'Albert Sans', sans-serif;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.327);
+	height: 60px;
+	font-size: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 20px;
+	position: -webkit-sticky; /* Для старых версий браузеров */
+	position: fixed;
+	top: 0;
+	z-index: 3;
+}
+#add{
+	background-color: rgb(38, 199, 156);
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	
+}
+#add:hover{
+	background-color: rgba(0, 255, 187, 0.442);
+}
+header a{
+	color: white;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+header a:hover{
+	color: rgba(255, 255, 255, 0.327);
+	transform: translateY(-5px);
+}
+.title {
+  font-size: 4rem; 
+	text-align: center;
+	margin-top: 5rem;
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+header .container{
+	justify-content: space-between;
+	display: flex;
+	align-items: center;
+}
+.noSub{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 50px;
+	width: 350px;
+	height: 350px;
+	white-space: nowrap;
+	margin: 100px auto;
+}
+.noSub span{
+	font-size: 3rem;
+	margin-top: 20px;
+	color: rgb(159, 156, 156);
+}
+.subject-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+	margin-top: 70px;
+}
+
+.subject-card {
+  flex: 1 0 calc(33.3333% - 20px);
+  margin: 10px;
+	font-size: 3.5rem;
+	border-radius: 15px;
+	border: none;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+.subject-card:hover{
+	transform: scale(1.05);
+	transition: all 0.3s ease;
+}
+.subject-card:hover a{
+	filter: drop-shadow(rgb(255, 255, 255) 0px 0px 10px);
+	transition: all 0.3s ease;
+}
+.subject-card a {
+	color: white;
+	text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .subject-card {
+		transition: all 0.3s ease;
+    flex: 1 0 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .subject-card {
+		transition: all 0.3s ease;
+    flex: 1 0 calc(100% - 20px);
+  }
+}
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+	display: none;
+}
+
+.modal-content {
+  background-color: rgba(142, 142, 142, 0.596);
+  margin: 15% auto;
+  padding: 20px;
+  width: 30%;
+	border-radius: 20px;
+	backdrop-filter: blur(20px);
+}
+.modal-content h2 {
+	color: white;
+	text-align: center;
+}
+#subjectName {
+	width: 100%;
+  border: none;
+	border-radius: 15px;
+	padding: 12px;
+	font-size: 1.3rem;
+	margin: 20px 0;
+	color: black;
+	background-color: wheat;
+	outline: none;
+}
+@media screen and (max-width: 600px) {
+  .modal-content {
+    width: 100%;
+  }
+}
+input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  border: 2px solid #555;
+	outline: none;
+	transition: all 0.3s ease;
+}
+
+input[type="radio"]:checked {
+  background-color: rgb(32, 195, 105);
+	box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(32, 195, 105);
+}
+input[type="radio"]:hover {
+	transform: scale(1.1);
+}
+input[type="radio"]:active {
+	box-shadow: rgb(32, 195, 105)  0px 0px 0px 2px;
+}
+
+.radio{
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+	text-align: left;
+}
+.radio label{
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	text-align: left;
+	margin-bottom: 20px;
+}
+.radio label span {
+	margin-left: 15px;
+}
+.modal_buttons{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.modal_buttons	button{
+		margin: 15px;
+		padding: 8px;
+		border: none;
+		border-radius: 15px;
+		align-items: center;
+		font-size: 1.3rem;
+	}
+	.modal_buttons button:first-child{
+		background-color: rgb(32, 195, 105);
+		transition: all 0.3s ease;
+		color: white;
+	}
+	.modal_buttons button:last-child{
+		background-color: rgb(229, 82, 82);
+		transition: all 0.3s ease;
+		color:white;
+	}
+	.modal_buttons button:hover{
+		transform: scale(1.05);
+	}
+	.modal_buttons button:first-child:hover{
+     background-color: green;
+	}
+	.modal_buttons button:last-child:hover{
+		background-color: red;
+	}
+
+.modal.active{
+	display: block;
+}
+#info{
+	margin-right: -3.5rem;
+}
+.subject-card{
+	position: relative;
+}
+.delete-subject{
+	background: transparent;
+	padding: 10px;
+	border: none;
+	color: rgb(255, 255, 255);
+	font-size: 2rem;
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	opacity: 0;
+	transition: all ease 0.3s;
+}
+.subject-card:hover .delete-subject{
+	opacity: 1;
+}
+.delete-subject:hover{
+	animation: shake 0.3s ease;
+	color: rgb(235, 115, 115);
+}
+@keyframes shake {
+	0% {
+		transform: rotate(10deg);
+	}
+	50% {
+		transform: rotate(-10deg);
+
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}

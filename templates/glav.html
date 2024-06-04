@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="static/css/glav.css">
+	<script src="/static/JS/glav.js" defer></script>
+	<title>Главная</title>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<a href="ваш путь на главную если мы на главную?" class="glav">Главная</a> <!-- ссылка на главную -->
+		<a href="ваш путь на главную если мы на главную?" class="glav" id="info">Информация</a> <!-- ссылка на информацию -->
+		<button type="button" id="add" >Добавить предмет</button> <!-- кнопка добавления предмета -->
+		</div>
+	</header>
+	<main>
+		<div class="container"> <!-- просто коробка, чтобы красиво все был не несет никакой смысловой нагрузки -->
+<h1 class="title">Предметы</h1> <!-- Заголовок -->
+<div class="noSub"><img src="{{url_for('static', filename='images/noSub.svg')}}" alt="У вас нет предметов в списке" class="noSubImg"><span>У вас нет предметов в списке</span></div>
+	<div class="subject-cards"> <!-- Список предметов -->
+		{% for page in pages %}
+	<div class="subject-card"> <!-- Карточка предмета -->
+		<a href="{{url_for('show_page', page_id=page.id, page_title=page.title)}}">{{page.title}}</a> <!-- ссылка на страницу с предметом -->
+	   <button id="delete-subject" class="delete-subject"><i class="fas fa-trash-alt"></i></button> <!-- Кнопка для удаления предмета -->
+	</div>
+{% endfor %}
+		<!--
+	<div class="subject-card">
+		<a href="ваш путь на страницу с предметом">усский</a>
+	   <button id="delete-subject2" class="delete-subject"><i class="fas fa-trash-alt"></i></button>
+	</div>
+	<div class="subject-card">
+		<a href="ваш путь на страницу с предметом">усский</a>
+	   <button id="delete-subject3" class="delete-subject"><i class="fas fa-trash-alt"></i></button>Кнопка для удаления предмета
+	</div>
+			-->
+	</div>
+</div>														                       	
+</div>
+<!-- это модальное окно для добавления предмета оно иначально скрыто на странице но с этого кода надо брать данные -->
+<div id="myModal" class="modal">
+  <div class="modal-content"> 
+    <h2>Добавление предмета</h2> <!-- Заголовок модального окна -->
+    <form action="{{ url_for('create') }}" method="post"> <!-- Форма для добавления предмета -->
+      <input type="text" name ="title" placeholder="Название предмета" id="subjectName"> <!-- Поле для ввода названия предмета -->
+      <div class="radio"> <!-- Кнопки для выбора типа добавления -->
+        <label>
+          <input type="radio" name="option" value="test-creation"> <!-- Поле для выбора типа добавления -->
+          <span>Создание теста</span> <!-- Поле для выбора типа добавления -->
+        </label>
+        <label>
+          <input type="radio" name="option" value="vocabulary-words">
+          <span>Словарные слова</span> 
+        </label>
+      </div>
+			<div class="modal_buttons">
+      <button class="agree btn btn-success" type="submit">Добавить предмет</button> <!-- Кнопка для добавления предмета -->
+      <button type="button" class="close" >Отмена</button> <!-- Кнопка для отмены добавления предмета -->
+		</div>
+    </form>
+  </div>
+</div>
+		</main>
+
+</body>
+</html>

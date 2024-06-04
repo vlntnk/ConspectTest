@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<title>{{page_title}}</title>
+		<link rel="stylesheet" href="/static/css/newpagestyle.css">
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<button class="open-panel" id="toggle-button">Открыть конспекты<i class="fas fa-chevron-right" id="arrow" style="color: #ffffff;"></i></button>
+				<!--<a href="ваш путь на главную если мы на информацию?" class="info" id="info">Информация</a>-->
+				<a href="{{ url_for('glav') }}" class="glav" id="glav">Главная</a>
+			</div>
+		</header>
+		<main>
+			<aside id="sidebar">
+				<h1>Конспекты:</h1>
+				<ul class="conspect-files">
+					{% for conspect in conspects %}
+					<li class="conspect-file">
+						<a href="{{conspect.path}}" download class="conspect-link" >{{conspect.name}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</aside>
+			<section id="content">
+				<h1 class="title">{{page_title}}</h1>
+				<form class="add-file" method="POST" action="{{ url_for('chat_save', page_title=page_title, page_id=page_id) }}" enctype="multipart/form-data">
+					<div class="file-drop-area">
+						<span class="file-msg">Перетащите файлы сюда или</span>
+						<button class="file-btn">Выберите файл</button>
+						<input type="file" class="file-input" name="file" accept=".txt, .pdf, .docx" required>
+							<div class="file-icon">
+		<script src="https://cdn.lordicon.com/lordicon.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/abaxrbtq.json"
+    trigger="loop"
+    state="loop-cycle"
+    style="width:60px;height:60px">
+</lord-icon>
+							</div>
+						<button type="submit" class="submit-send-file">Создать тест</button>
+					</div>
+				</form>
+				<div class="question">
+				{% if test %}
+					&nbsp;
+					<form id="myForm" action="{{(url_for('show_page', page_id=page_id, page_title=page_title))}}" method="POST">
+						{% for i in range(test|length) %}
+							{% if i == 0 %}
+								<br>
+								<p>{{ test[0] }}</p>
+							{% endif %}
+							{% if i <= 5 and i not in [0, 5, 6, 11, 12, 17] %}
+								<label>
+									<input type="radio" name="item1" value="{{ i }}"> <!--id="item1_{{ i }}"-->
+									<span>{{ test[i] }}</span>
+								</label>
+								<br>
+							{% endif %}
+							{% if i == 6 %}
+								<br>
+								<p>{{ test[6] }}</p>
+							{% endif %}
+							{% if i > 5 and i <= 11 and i not in [0, 5, 6, 11, 12, 17] %}
+								<label>
+									<input type="radio" name="item2" value="{{ i }}"><!-- id="item2_{{ i }}">-->
+									<span>{{ test[i] }}</span>
+								</label>
+								<br>
+							{% endif %}
+							{% if i == 12 %}
+								<br>
+								<p>{{ test[12] }}</p>
+							{% endif %}
+							{% if i > 11 and i <= 17 and i not in [0, 5, 6, 11, 12, 17] %}
+								<label>
+									<input type="radio" name="item3" value="{{ i }}"><!-- id="item3_{{ i }}">-->
+									<span>{{ test[i] }}</span>
+								</label>
+								<br>
+							{% endif %}
+						{% endfor %}
+
+					</form>
+				{% endif %}
+			</div>
+					<button type="submit" id="new_page" >Получить выбранные значения</button>
+			</section>
+		</main>
+	<script>
+      let buttonPage = document.getElementById('new_page');
+      buttonPage.addEventListener('click', function (event) {
+        event.preventDefault();
+        let test = "{{test|safe}}";
+        console.log(test);
+        console.log(test[5]);
+        var count = 0;
+
+          var form = document.getElementById("myForm");
+          var selectedOptions1 = document.getElementsByName("item1");
+
+          let test5 = "{{test[5]}}";
+          console.log(test5);
+          var selectedText1 = "";
+          for (var i = 0; i < selectedOptions1.length; i++) {
+            if (selectedOptions1[i].checked) {
+              selectedText1 = selectedOptions1[i].parentElement.textContent.trim();
+              if(selectedText1.toUpperCase()===test5.toUpperCase()){
+              count+=1;
+              selectedOptions1[i].id = "correct";
+              console.log(selectedOptions1[i].id);
+              }
+			  else {
+				selectedOptions1[i].id = "not_correct";
+              console.log(selectedOptions1[i].id);
+			  }
+              break;
+            }
+          }
+          var selectedOptions2 = document.getElementsByName("item2");
+          let test11 = "{{test[11]}}";
+          var selectedText2 = "";
+          for (var i = 0; i < selectedOptions2.length; i++) {
+            if (selectedOptions2[i].checked) {
+              selectedText2 =selectedOptions2[i].parentElement.textContent.trim();
+              if(selectedText2.toUpperCase()===test11.toUpperCase()){
+              count+=1;
+              selectedOptions2[i].id = "correct";
+              console.log(selectedOptions2[i].id);
+              }
+              else {
+				selectedOptions2[i].id = "not_correct";
+              console.log(selectedOptions2[i].id);
+			  }
+              break;
+            }
+          }
+          var selectedOptions3 = document.getElementsByName("item3");
+          let test17 = "{{test[17]}}";
+           var selectedText3 = "";
+          for (var i = 0; i < selectedOptions3.length; i++) {
+            if (selectedOptions3[i].checked) {
+              selectedText3 = selectedOptions3[i].parentElement.textContent.trim();
+              if(selectedText3.toUpperCase()===test17.toUpperCase()){
+              count+=1;
+              selectedOptions3[i].id = "correct";
+              console.log(selectedOptions3[i].id);
+              }
+              else {
+				selectedOptions3[i].id = "not_correct";
+              console.log(selectedOptions3[i].id);
+			  }
+              break;
+            }
+          }
+          alert("Количество правильных ответов: " + count);
+          var formData = new FormData(document.getElementById("myForm"));
+           let page_title = "{{page_title|safe}}";
+      let page_id = "{{page_id|safe}}";
+      console.log(page_title);
+      console.log(page_id);
+      fetch(`/newpage/${page_title}/${page_id}`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          // location.href = `/newpage/${page_title}/${page_id}`;
+        } else {
+          alert("");
+        }
+      })
+      .catch(error => {
+        alert("Произошла ошибка. Пожалуйста, повторите попытку.");
+      });
+      });
+		var correctElements = document.querySelectorAll("#correct");
+		// Изменить цвет selectedOptions
+		for (var i = 0; i < correctElements.length; i++) {
+ 		correctElements[i].style.color = "red";}
+    </script>
+	<!-- Скрипт для работы с файлами -->
+
+<script>
+ const fileInput = document.querySelector('.file-input');
+const droparea = document.querySelector('.file-drop-area');
+
+fileInput.addEventListener('dragenter', function() {
+  droparea.classList.add('is-active');
+});
+
+fileInput.addEventListener('dragleave', function() {
+  droparea.classList.remove('is-active');
+});
+
+fileInput.addEventListener('blur', function() {
+  droparea.classList.remove('is-active');
+});
+
+fileInput.addEventListener('drop', function() {
+  droparea.classList.remove('is-active');
+});
+
+fileInput.addEventListener('change', function() {
+  let filesCount = this.files.length;
+  let textContainer = this.previousElementSibling;
+
+  if (filesCount === 1) {
+    let fileName = this.value.split('\\').pop();
+    textContainer.textContent = fileName;
+  } else {
+    textContainer.textContent = filesCount + ' файлов выбрано';
+  }
+});
+</script>
+		<script src="/static/JS/new.js" ></script>
+		<script>
+  let button = document.querySelector(".submit-send-file");
+  button.addEventListener("click", () => {
+    let icon = document.querySelector(".file-icon");
+    let test = "{{ test|safe }}";
+	if (test){
+      icon.style.display = "block";}
+
+  });
+</script>
+	</body>
+</html>

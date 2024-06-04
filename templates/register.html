@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Регистрация</title>
+	<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/styleReg.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<form action="/register" method="post" id="form"> <!-- Форма для регистрации -->
+  <h2>Регистрация</h2> <!-- Заголовок формы -->
+  <input type="email" class="form-control" placeholder="Логин" id="login" name="login"> <!-- Поле для ввода логина -->
+  <input type="password" class="form-control" placeholder="Пароль" id="password" name="password"> <!-- Поле для ввода пароля -->
+	<div class="buttons"> <!-- Кнопки для регистрации -->
+  <button class="btn btn-success" type="submit" id="submit_2">Добавить родителя</button> <!-- Кнопка для регистрации -->
+	<button class="btn btn-success" type="submit" id="submit_1">Добавить ученика</button> <!-- Кнопка для регистрации -->
+	</div>
+</form>
+<script>
+  document.getElementById('submit_1').addEventListener('click', function(event) {
+      event.preventDefault();
+  let login = document.querySelector('#login').value;
+  let password = document.querySelector('#password').value;
+  if (login !== '' && password.length >= 8) {
+    const formData = new FormData();
+    formData.append('login', 'm_'+login);
+    formData.append('password', password);
+    fetch('/register', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        location.href = "/glav";
+      } else {
+        alert("Такой пользователь существует");
+        document.getElementById('login').value = '';
+        document.getElementById('password').value = '';
+      }
+    })
+    .catch(error => {
+      alert("Произошла ошибка. Пожалуйста, повторите попытку.");
+    });
+  } else {
+    alert("Введите пароль длиной минимум 8 символов.");
+    document.getElementById('login').value = '';
+    document.getElementById('password').value = '';}
+});
+</script>
+<script>
+     document.getElementById('submit_2').addEventListener('click', function(event) {
+      event.preventDefault();
+  let login = document.querySelector('#login').value;
+  let password = document.querySelector('#password').value;
+  if (login !== '' && password.length >= 8) {
+    const formData = new FormData();
+    formData.append('login', 's_'+login);
+    formData.append('password', password);
+
+    fetch('/register', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        location.href = "/glav";
+      } else {
+        alert("Такой пользователь существует");
+        document.getElementById('login').value = '';
+        document.getElementById('password').value = '';
+      }
+    })
+    .catch(error => {
+      alert("Произошла ошибка. Пожалуйста, повторите попытку.");
+    });
+  } else {
+    alert("Введите пароль длиной минимум 8 символов.");
+    document.getElementById('login').value = '';
+    document.getElementById('password').value = '';}
+});
+</script>
+</body>
+</html>

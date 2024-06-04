@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Вход</title>
+	<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/styleVxod.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<form action="" method="post">  <!-- Форма для входа -->
+  <h2>Вход</h2> <!-- Заголовок формы -->
+  <input type="email" class="form-control" placeholder="Введите логин" id="login" name="login">  <!-- Поле для ввода логина -->
+  <input type="password" class="form-control" placeholder="Введите пароль" id="password" name="password">  <!-- Поле для ввода пароля -->
+  <button class="btn btn-success" id="vxod" onclick="" type="submit">Войти</button>  <!-- Кнопка для входа -->
+    <br><a href="/register">Нету аккаунта?Зарегистрируйтесь!</a>
+</form>
+<script>
+    document.getElementById('vxod').addEventListener('click', function(event) {
+      event.preventDefault();
+  let login = document.querySelector('#login').value;
+  let password = document.querySelector('#password').value;
+  if (login !== '' && password !== '') {
+            const formData = new FormData();
+            formData.append('login', login);
+            formData.append('password', password);
+
+            fetch('/vxod', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                location.href = "/glav";
+            } else {
+                alert("Такой пользователь не существует");
+                document.getElementById('login').value = '';
+                document.getElementById('password').value = '';
+            }
+        })
+        .catch(error => {
+            alert("Произошла ошибка. Пожалуйста, повторите попытку.");
+        });
+    } else {
+        alert("Введите пароль длиной минимум 8 символов.");
+        document.getElementById('login').value = '';
+        document.getElementById('password').value = '';
+    }
+});
+</script>
+</body>
+</html>
